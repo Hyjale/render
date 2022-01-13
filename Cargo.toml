@@ -1,0 +1,9 @@
+[package]
+name = "wgpu"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+bytemuck = { version = "1.7.3", features = [ "derive" ] }
+wgpu = "0.12"
+winit = "0.25"
