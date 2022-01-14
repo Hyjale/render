@@ -6,7 +6,6 @@ use crate::renderer::{
 };
 
 pub struct Renderer {
-    instance: wgpu::Instance,
     adapter: wgpu::Adapter,
     device: wgpu::Device,
     queue: wgpu::Queue,
@@ -60,7 +59,6 @@ impl Renderer {
         surface.configure(&device, &config);
 
         Renderer {
-            instance: instance,
             adapter: adapter,
             device: device,
             queue: queue,
@@ -71,5 +69,36 @@ impl Renderer {
         }
     }
 
-    pub fn do_nothing(&self) {}
+    pub fn draw(&self) {
+        let frame = self.surface
+            .get_current_texture()
+            .expect("Failed to get next swap chain texture");
+
+        let view = frame
+            .texture
+            .create_view(&wgpu::TextureViewDescriptor::default());
+
+        let mut encoder = self.device.create_command_encoder(&wgpu::CommandEncoderDescriptor {label: None});
+        {
+            let mut rpass = encoder.begin_render_pass(&wgpu::RenderPassDescriptor {
+                label: None,
+                color_attachments: &[wgpu::RenderPassColorAttachment {
+                    view: &view,
+                    resolve_target: None,
+                    ops: wgpu::Operations {
+                        load: wgpu::LoadOp::Clear(wgpu::Color::BLACK),
+                        store: true
+                    },
+                }],
+                depth_stencil_attachment: None,
+            });
+
+            let pipeline = self.pipeline.get_pipeline();
+            rpass.set_pipeline(pipeline);
+            rpass.draw(0..3, 0..1);
+        }
+
+        self.queue.submit(Some(encoder.finish()));
+        frame.present();
+    }
 }
