@@ -1,8 +1,9 @@
 use winit::window::Window;
 
 use crate::renderer::{
+    buffer::Buffer,
+    pipeline::Pipeline,
     shader::Shader,
-    pipeline::Pipeline
 };
 
 pub struct Renderer {
