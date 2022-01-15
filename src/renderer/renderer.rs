@@ -6,13 +6,11 @@ use crate::renderer::{
 };
 
 pub struct Renderer {
-    adapter: wgpu::Adapter,
     device: wgpu::Device,
     queue: wgpu::Queue,
     pipeline: Pipeline,
     surface: wgpu::Surface,
     config: wgpu::SurfaceConfiguration,
-    size: winit::dpi::PhysicalSize<u32>
 }
 
 impl Renderer {
@@ -59,13 +57,11 @@ impl Renderer {
         surface.configure(&device, &config);
 
         Renderer {
-            adapter: adapter,
             device: device,
             queue: queue,
             pipeline: pipeline,
             surface: surface,
             config: config,
-            size: size
         }
     }
 
@@ -100,5 +96,13 @@ impl Renderer {
 
         self.queue.submit(Some(encoder.finish()));
         frame.present();
+    }
+
+    pub fn resize(&mut self, width: u32, height: u32) {
+        self.config.width = width;
+        self.config.height = height;
+
+        self.surface.configure(&self.device, &self.config);
+
     }
 }

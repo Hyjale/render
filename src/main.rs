@@ -16,16 +16,16 @@ async fn main() {
 
     let event_loop = EventLoop::new();
     let window = Window::new(&event_loop).unwrap();
-    let renderer = Renderer::new(&window).await;
+    let mut renderer = Renderer::new(&window).await;
 
     event_loop.run(move |event, _, control_flow| {
         *control_flow = ControlFlow::Wait;
         match event {
             Event::WindowEvent {
-                event: WindowEvent::Resized(_size),
+                event: WindowEvent::Resized(size),
                 ..
             } => {
-                // TODO Resize
+                renderer.resize(size.width, size.height);
             },
             Event::RedrawRequested(_) => {
                 renderer.draw();
