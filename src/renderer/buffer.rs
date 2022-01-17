@@ -12,4 +12,8 @@ impl Buffer {
             buffer: buffer
         }
     }
+
+    pub fn get_buffer(&self) -> &wgpu::Buffer {
+        &self.buffer
+    }
 }
