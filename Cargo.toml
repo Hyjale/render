@@ -1,5 +1,5 @@
 [package]
-name = "wgpu"
+name = "renderer"
 version = "0.1.0"
 edition = "2021"
 
@@ -10,3 +10,7 @@ env_logger = "0.9"
 tokio = {version = "1.15.0", features = ["full"]}
 wgpu = "0.12"
 winit = "0.26"
+
+[[example]]
+name = "cube"
+path = "examples/cube.rs"

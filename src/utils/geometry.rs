@@ -8,7 +8,7 @@ fn vertex(pos: [i8; 3]) -> Vertex {
     }
 }
 
-pub struct Geometry {}
+pub struct Geometry;
 
 impl Geometry {
     pub fn create_cube_data() -> (Vec<Vertex>, Vec<u16>) {

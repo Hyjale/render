@@ -13,7 +13,7 @@ fn vs_main(
     [[location(0)]] position: vec4<f32>,
 ) -> VertexOutput {
     var out: VertexOutput;
-    out.position = vp.matrix* position;
+    out.position = vp.matrix * position;
     return out;
 }
 

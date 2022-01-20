@@ -1,13 +1,10 @@
-mod renderer;
-mod utils;
-
 use winit::{
     event::{Event, WindowEvent},
     event_loop::{ControlFlow, EventLoop},
     window::Window,
 };
 
-use crate::{
+use renderer::{
     renderer::{
         buffer_data::BufferData,
         renderer::Renderer,
