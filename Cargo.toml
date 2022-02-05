@@ -7,19 +7,10 @@ edition = "2021"
 bytemuck = { version = "1.7.3", features = [ "derive" ] }
 cgmath = "0.18"
 env_logger = "0.9"
+openxr = { git = "https://github.com/Ralith/openxrs", features = ["loaded"]}
 tokio = {version = "1.15.0", features = ["full"]}
 wgpu = "0.12"
 winit = "0.26"
-
-[target.'cfg(target_os = "android")'.dependencies]
-openxr = { git = "https://github.com/Ralith/openxrs", default-features = false, features = [
-    "loaded",
-] }
-
-[target.'cfg(not(target_os = "android"))'.dependencies]
-openxr = { git = "https://github.com/Ralith/openxrs", default-features = false, features = [
-    "static",
-] }
 
 [[example]]
 name = "cube"
@@ -28,8 +19,8 @@ path = "examples/cube.rs"
 [[example]]
 name = "openxr"
 path = "examples/openxr.rs"
-crate-type = ["cdylib"]
 
+# later
 [package.metadata.android.sdk]
 min_sdk_version = 21
 target_sdk_version = 30
