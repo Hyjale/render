@@ -1,9 +1,13 @@
 use ash::{vk::{self, Handle}};
 use openxr as xr;
 
+#[cfg_attr(target_os = "android", ndk_glue::main)]
 fn main() {
     let entry = xr::Entry::load()
         .expect("Couldn't find the OpenXR loader; try enabling the \"static\" feature");
+
+    #[cfg(target_os = "android")]
+    entry.initialize_android_loader().unwrap();
 
     let extensions = entry.enumerate_extensions().unwrap();
     println!("Extensions: {:#?}", extensions);
@@ -15,6 +19,10 @@ fn main() {
         enabled_extensions.khr_vulkan_enable2 = true;
     } else {
         enabled_extensions.khr_vulkan_enable = true;
+    }
+    #[cfg(target_os = "android")]
+    {
+        enabled_extensions.khr_android_create_instance = true;
     }
 
     let instance = entry

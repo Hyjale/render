@@ -13,6 +13,10 @@ tokio = {version = "1.15.0", features = ["full"]}
 wgpu = "0.12"
 winit = "0.26"
 
+[target.'cfg(target_os = "android")'.dependencies]
+ndk-context = "0.1"
+ndk-glue = "0.6.1"
+
 [[example]]
 name = "cube"
 path = "examples/cube.rs"
@@ -20,8 +24,15 @@ path = "examples/cube.rs"
 [[example]]
 name = "openxr"
 path = "examples/openxr.rs"
+crate-type = ["cdylib"]
 
-# later
+[package.metadata.android]
+runtime_libs = "examples/libs"
+
 [package.metadata.android.sdk]
 min_sdk_version = 21
 target_sdk_version = 30
+
+[[package.metadata.android.application.activity.intent_filter]]
+actions = ["android.intent.action.MAIN"]
+categories = ["com.oculus.intent.category.VR", "android.intent.category.LAUNCHER"]
