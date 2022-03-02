@@ -4,7 +4,7 @@ use winit::{
     window::Window,
 };
 
-use renderer::{
+use xr_renderer::{
     renderer::{
         buffer_data::BufferData,
         renderer::Renderer,
