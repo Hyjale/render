@@ -1,4 +1,4 @@
-use ash::{vk::{self, Handle}};
+use ash::{vk::{self}};
 
 pub const COLOR_FORMAT: vk::Format = vk::Format::R8G8B8A8_SRGB;
 pub const VIEW_COUNT: u32 = 2;

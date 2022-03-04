@@ -1,4 +1,3 @@
-use ash::{vk::{self, Handle}};
 use openxr as xr;
 
 use xr_renderer::{

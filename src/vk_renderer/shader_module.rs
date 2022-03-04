@@ -2,7 +2,7 @@ use std::{io::Cursor};
 
 use ash::{
     util::read_spv,
-    vk::{self, Handle}
+    vk::{self}
 };
 
 pub struct ShaderModule {
