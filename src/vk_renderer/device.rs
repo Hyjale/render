@@ -1,13 +1,14 @@
 use ash::{vk::{self, Handle}};
 
 pub struct Device {
-    device: ash::Device
+    device: ash::Device,
+    queue: ash::vk::Queue,
 }
 
 impl Device {
-    pub fn new(instance: &openxr::Instance, system: openxr::SystemId) -> Self {
-        // TODO VK Version asserts
+    pub fn new(instance: openxr::Instance, system: openxr::SystemId) -> Self {
         unsafe {
+            // TODO VK Version asserts
             let vk_target_version = vk::make_api_version(0, 1, 1, 0); // Vulkan 1.1 guarantees multiview support
 
             let vk_entry = ash::Entry::load().unwrap();
@@ -82,15 +83,16 @@ impl Device {
                 ash::Device::load(vk_instance.fp_v1_0(), vk::Device::from_raw(vk_device as _))
             };
 
+            let queue = vk_device.get_device_queue(queue_family_index, 0);
 
             Device {
-                device: vk_device
+                device: vk_device,
+                queue: queue
             }
         }
     }
 
-
-    pub fn get_device(&self) -> &ash::Device {
+    pub fn borrow(&self) -> &ash::Device {
         &self.device
     }
 }

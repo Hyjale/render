@@ -4,6 +4,7 @@ use openxr as xr;
 use xr_renderer::{
     vk_renderer::{
         device::Device,
+        shader_module::ShaderModule,
     }
 };
 
@@ -50,6 +51,10 @@ fn main() {
         .system(xr::FormFactor::HEAD_MOUNTED_DISPLAY)
         .unwrap();
 
-    Device::new(&instance, system);
-    // let queue = vk_device.get_device_queue(queue_family_index, 0);
+    let device = Device::new(instance, system);
+
+    let shader_modules = ShaderModule::new(device.borrow(),
+                                           include_bytes!("../src/vk_renderer/triangle.vert.spv"),
+                                           include_bytes!("../src/vk_renderer/triangle.frag.spv")
+    );
 }
