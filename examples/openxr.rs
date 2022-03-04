@@ -4,6 +4,8 @@ use openxr as xr;
 use xr_renderer::{
     vk_renderer::{
         device::Device,
+        pipeline::Pipeline,
+        render_pass::RenderPass,
         shader_module::ShaderModule,
     }
 };
@@ -56,5 +58,13 @@ fn main() {
     let shader_modules = ShaderModule::new(device.borrow(),
                                            include_bytes!("../src/vk_renderer/triangle.vert.spv"),
                                            include_bytes!("../src/vk_renderer/triangle.frag.spv")
+    );
+
+    let render_pass = RenderPass::new(device.borrow());
+
+    let pipeline = Pipeline::new(device.borrow(),
+                                 render_pass.render_pass,
+                                 shader_modules.vert,
+                                 shader_modules.frag
     );
 }

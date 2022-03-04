@@ -6,8 +6,8 @@ use ash::{
 };
 
 pub struct ShaderModule {
-    vert: ash::vk::ShaderModule,
-    frag: ash::vk::ShaderModule
+    pub vert: ash::vk::ShaderModule,
+    pub frag: ash::vk::ShaderModule
 }
 
 impl ShaderModule {
@@ -28,5 +28,13 @@ impl ShaderModule {
                 frag: frag
             }
         }
+    }
+
+    pub fn borrow_vert(&self) -> &ash::vk::ShaderModule {
+        &self.vert
+    }
+
+    pub fn borrow_frag(&self) -> &ash::vk::ShaderModule {
+        &self.frag
     }
 }
