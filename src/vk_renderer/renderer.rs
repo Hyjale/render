@@ -1,16 +1,10 @@
 use std::sync::{Arc};
 
-use ash::{
-    util::read_spv,
-    vk::{self}
-};
-
-use crate::{VkHandle, impl_vk_handle};
+use crate::{VkHandle};
 use crate::vk_renderer::{
     device::Device,
     pipeline::Pipeline,
     render_pass::RenderPass,
-    shader_module::ShaderModule,
 };
 
 pub struct Renderer {

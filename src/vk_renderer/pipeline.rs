@@ -1,8 +1,6 @@
 use ash::{vk::{self}};
 
 use crate::vk_renderer::{
-    device::Device,
-    render_pass::RenderPass,
     shader_module::ShaderModule
 };
 

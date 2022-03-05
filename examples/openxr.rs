@@ -2,10 +2,7 @@ use openxr as xr;
 
 use xr_renderer::{
     vk_renderer::{
-        device::Device,
-        pipeline::Pipeline,
-        render_pass::RenderPass,
-        shader_module::ShaderModule,
+        renderer::Renderer,
     }
 };
 

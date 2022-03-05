@@ -3,7 +3,6 @@ use std::sync::{Arc};
 use ash::{vk::{self}};
 
 use crate::{VkHandle, impl_vk_handle};
-use crate::vk_renderer::{device::Device};
 
 pub const COLOR_FORMAT: vk::Format = vk::Format::R8G8B8A8_SRGB;
 pub const VIEW_COUNT: u32 = 2;

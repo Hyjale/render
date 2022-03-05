@@ -2,8 +2,6 @@ use std::sync::{Arc};
 
 use ash::{vk::{self, Handle}};
 
-use crate::{VkHandle, impl_vk_handle};
-
 pub struct Device {
     device: ash::Device,
     queue: ash::vk::Queue,

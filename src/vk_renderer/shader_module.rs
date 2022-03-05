@@ -1,4 +1,4 @@
-use std::{io::Cursor, sync::Arc};
+use std::{io::Cursor};
 
 use ash::{
     util::read_spv,
