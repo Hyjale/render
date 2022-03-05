@@ -1,14 +1,18 @@
 use ash::{vk::{self}};
 
+use crate::vk_renderer::{
+    device::Device,
+    render_pass::RenderPass,
+    shader_module::ShaderModule
+};
+
 pub struct Pipeline {
     pipeline: ash::vk::Pipeline,
 }
 
 impl Pipeline {
     pub fn new(device: &ash::Device,
-               render_pass: ash::vk::RenderPass,
-               vert_module: ash::vk::ShaderModule,
-               frag_module: ash::vk::ShaderModule
+               render_pass: ash::vk::RenderPass
     ) -> Self {
         unsafe {
             let pipeline_layout = device
@@ -27,6 +31,9 @@ impl Pipeline {
                 write_mask: 0,
                 reference: 0,
             };
+
+            let vert_module = ShaderModule::new(&device, include_bytes!("triangle.vert.spv"));
+            let frag_module = ShaderModule::new(&device, include_bytes!("triangle.frag.spv"));
 
             let pipeline = device
                 .create_graphics_pipelines(

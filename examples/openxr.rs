@@ -52,18 +52,5 @@ fn main() {
         .system(xr::FormFactor::HEAD_MOUNTED_DISPLAY)
         .unwrap();
 
-    let device = Device::new(instance, system);
-
-    let shader_modules = ShaderModule::new(device.borrow(),
-                                           include_bytes!("../src/vk_renderer/triangle.vert.spv"),
-                                           include_bytes!("../src/vk_renderer/triangle.frag.spv")
-    );
-
-    let render_pass = RenderPass::new(device.borrow());
-
-    let pipeline = Pipeline::new(device.borrow(),
-                                 render_pass.render_pass,
-                                 shader_modules.vert,
-                                 shader_modules.frag
-    );
+    // TODO Destroy shader modules and everything else
 }
