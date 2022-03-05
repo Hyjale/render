@@ -56,10 +56,6 @@ impl RenderPass {
             })
         }
     }
-
-    pub fn borrow(&self) -> &ash::vk::RenderPass{
-        &self.render_pass
-    }
 }
 
 impl_vk_handle!(RenderPass, ash::vk::RenderPass, render_pass);

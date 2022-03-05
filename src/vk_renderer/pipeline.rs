@@ -111,8 +111,4 @@ impl Pipeline {
             }
         }
     }
-
-    pub fn borrow(&self) -> &ash::vk::Pipeline {
-        &self.pipeline
-    }
 }
