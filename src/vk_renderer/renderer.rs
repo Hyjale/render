@@ -1,28 +1,67 @@
 use std::sync::{Arc};
 
+use ash::{vk::{self}};
+
 use crate::{VkHandle};
 use crate::vk_renderer::{
+    command_pool::CommandPool,
     device::Device,
+    instance::Instance,
+    physical_device::PhysicalDevice,
     pipeline::Pipeline,
     render_pass::RenderPass,
 };
 
 pub struct Renderer {
-    device: Arc<Device>
+    device: Arc<Device>,
+    render_pass: Arc<RenderPass>,
+    pipeline: Arc<Pipeline>
 }
 
 impl Renderer {
     pub fn new(instance: openxr::Instance, system: openxr::SystemId) -> Self {
-        let device = Device::new(instance, system);
+        unsafe {
+            // TODO VK Version asserts
+            let target_version = vk::make_api_version(0, 1, 1, 0); // Vulkan 1.1 guarantees multiview support
 
-        let render_pass = RenderPass::new(&device.borrow());
+            let entry = ash::Entry::load().unwrap();
 
-        let pipeline = Pipeline::new(&device.borrow(),
-                                     render_pass.vk_handle()
-        );
+            let app_info = vk::ApplicationInfo::builder()
+                .application_version(0)
+                .engine_version(0)
+                .api_version(target_version);
 
-        Renderer {
-            device: device
+            let vk_instance = Instance::new(&instance,
+                                            &entry,
+                                            system,
+                                            app_info
+            );
+
+            let physical_device = PhysicalDevice::new(&instance,
+                                                      &vk_instance.borrow(),
+                                                      system,
+            );
+
+            let device = Device::new(&instance,
+                                     &vk_instance.borrow(),
+                                     &entry,
+                                     physical_device.vk_handle(),
+                                     system
+            );
+
+            let render_pass = RenderPass::new(&device.borrow());
+
+            let pipeline = Pipeline::new(&device.borrow(),
+                                        render_pass.vk_handle()
+            );
+
+            let command_pool = CommandPool::new(&device.borrow(), device.queue_family_index());
+
+            Renderer {
+                device: device,
+                render_pass: render_pass,
+                pipeline: pipeline
+            }
         }
     }
 }

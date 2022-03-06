@@ -1,3 +1,5 @@
+use std::sync::{Arc};
+
 use ash::{vk::{self}};
 
 use crate::vk_renderer::{
@@ -11,7 +13,7 @@ pub struct Pipeline {
 impl Pipeline {
     pub fn new(device: &ash::Device,
                render_pass: ash::vk::RenderPass
-    ) -> Self {
+    ) -> Arc<Pipeline> {
         unsafe {
             let pipeline_layout = device
                 .create_pipeline_layout(
@@ -106,9 +108,9 @@ impl Pipeline {
                 )
                 .unwrap()[0];
 
-            Pipeline {
+            Arc::new(Pipeline {
                 pipeline: pipeline
-            }
+            })
         }
     }
 }

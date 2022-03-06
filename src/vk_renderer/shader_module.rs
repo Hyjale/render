@@ -17,7 +17,6 @@ impl ShaderModule {
                 .unwrap();
 
             shader_module
-
         }
     }
 }
