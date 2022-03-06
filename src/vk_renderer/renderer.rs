@@ -4,6 +4,7 @@ use ash::{vk::{self}};
 
 use crate::{VkHandle};
 use crate::vk_renderer::{
+    command_buffer::CommandBuffer,
     command_pool::CommandPool,
     device::Device,
     instance::Instance,
@@ -56,6 +57,8 @@ impl Renderer {
             );
 
             let command_pool = CommandPool::new(&device.borrow(), device.queue_family_index());
+
+            let command_buffers = CommandBuffer::new(&device.borrow(), command_pool.vk_handle());
 
             Renderer {
                 device: device,
