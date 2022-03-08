@@ -7,6 +7,7 @@ use crate::vk_renderer::{
     command_buffer::CommandBuffer,
     command_pool::CommandPool,
     device::Device,
+    fence::Fence,
     instance::Instance,
     physical_device::PhysicalDevice,
     pipeline::Pipeline,
@@ -59,6 +60,8 @@ impl Renderer {
             let command_pool = CommandPool::new(&device.borrow(), device.queue_family_index());
 
             let command_buffers = CommandBuffer::new(&device.borrow(), command_pool.vk_handle());
+
+            let fences = Fence::new(&device.borrow());
 
             Renderer {
                 device: device,
