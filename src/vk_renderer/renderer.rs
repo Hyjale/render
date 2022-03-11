@@ -12,6 +12,7 @@ use crate::vk_renderer::{
     physical_device::PhysicalDevice,
     pipeline::Pipeline,
     render_pass::RenderPass,
+    swapchain::Swapchain,
 };
 
 pub struct Renderer {
