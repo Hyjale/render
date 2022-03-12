@@ -7,8 +7,7 @@ pub struct Input {
 }
 
 impl Input {
-    pub fn new(instance: &openxr::Instance,
-    ) -> Self {
+    pub fn new(instance: &openxr::Instance) -> Self {
         let action_set = instance
             .create_action_set("input", "input pose information", 0)
             .unwrap();
