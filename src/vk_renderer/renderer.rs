@@ -52,17 +52,17 @@ impl Renderer {
                                      system
             );
 
-            let render_pass = RenderPass::new(&device.borrow());
+            let render_pass = RenderPass::new(device.clone());
 
-            let pipeline = Pipeline::new(&device.borrow(),
+            let pipeline = Pipeline::new(device.clone(),
                                         render_pass.vk_handle()
             );
 
-            let command_pool = CommandPool::new(&device.borrow(), device.queue_family_index());
+            let command_pool = CommandPool::new(device.clone(), device.queue_family_index());
 
-            let command_buffers = CommandBuffer::new(&device.borrow(), command_pool.vk_handle());
+            let command_buffers = CommandBuffer::new(device.clone(), command_pool.vk_handle());
 
-            let fences = Fence::new(&device.borrow());
+            let fences = Fence::new(device.clone());
 
             Renderer {
                 device: device,
@@ -71,4 +71,6 @@ impl Renderer {
             }
         }
     }
+
+    // TODO - destroy resources
 }

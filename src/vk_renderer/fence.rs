@@ -2,6 +2,10 @@ use std::sync::{Arc};
 
 use ash::{vk::{self}};
 
+use crate::vk_renderer::{
+    device::Device
+};
+
 const PIPELINE_DEPTH: u32 = 2;
 
 pub struct Fence {
@@ -9,11 +13,12 @@ pub struct Fence {
 }
 
 impl Fence {
-    pub fn new(device: &ash::Device) -> Arc<Fence> {
+    pub fn new(device: Arc<Device>) -> Arc<Fence> {
         unsafe {
             let fence = (0..PIPELINE_DEPTH)
                 .map(|_| {
                     device
+                        .borrow()
                         .create_fence(
                             &vk::FenceCreateInfo::builder().flags(vk::FenceCreateFlags::SIGNALED),
                             None,

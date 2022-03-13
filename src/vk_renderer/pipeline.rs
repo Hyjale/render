@@ -3,6 +3,7 @@ use std::sync::{Arc};
 use ash::{vk::{self}};
 
 use crate::vk_renderer::{
+    device::Device,
     shader_module::ShaderModule
 };
 
@@ -11,11 +12,12 @@ pub struct Pipeline {
 }
 
 impl Pipeline {
-    pub fn new(device: &ash::Device,
+    pub fn new(device: Arc<Device>,
                render_pass: ash::vk::RenderPass
     ) -> Arc<Pipeline> {
         unsafe {
             let pipeline_layout = device
+                .borrow()
                 .create_pipeline_layout(
                     &vk::PipelineLayoutCreateInfo::builder().set_layouts(&[]),
                     None,
@@ -32,10 +34,11 @@ impl Pipeline {
                 reference: 0,
             };
 
-            let vert_module = ShaderModule::new(&device, include_bytes!("triangle.vert.spv"));
-            let frag_module = ShaderModule::new(&device, include_bytes!("triangle.frag.spv"));
+            let vert_module = ShaderModule::new(device.borrow(), include_bytes!("triangle.vert.spv"));
+            let frag_module = ShaderModule::new(device.borrow(), include_bytes!("triangle.frag.spv"));
 
             let pipeline = device
+                .borrow()
                 .create_graphics_pipelines(
                     vk::PipelineCache::null(),
                     &[vk::GraphicsPipelineCreateInfo::builder()
