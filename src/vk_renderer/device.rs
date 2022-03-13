@@ -75,4 +75,16 @@ impl Device {
     pub fn queue_family_index(&self) -> u32 {
         self.queue_family_index
     }
+
+    pub fn begin_command_buffer(&self, cmd_buffer: ash::vk::CommandBuffer) {
+        unsafe {
+            self.device
+                .begin_command_buffer(
+                    cmd_buffer,
+                    &vk::CommandBufferBeginInfo::builder()
+                        .flags(vk::CommandBufferUsageFlags::ONE_TIME_SUBMIT),
+                )
+                .expect("Begin command buffer failed");
+        }
+    }
 }
