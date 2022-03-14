@@ -60,4 +60,26 @@ impl CommandBuffer {
                 )
         }
     }
+
+    pub fn cmd_set_viewport(&self,
+                            cmd_buffer: ash::vk::CommandBuffer,
+                            viewports: &[ash::vk::Viewport]
+    ) {
+        unsafe {
+            self.device
+                .borrow()
+                .cmd_set_viewport(cmd_buffer, 0, &viewports);
+        }
+    }
+
+    pub fn cmd_set_scissor(&self,
+                            cmd_buffer: ash::vk::CommandBuffer,
+                            scissors: &[ash::vk::Rect2D]
+    ) {
+        unsafe {
+            self.device
+                .borrow()
+                .cmd_set_scissor(cmd_buffer, 0, &scissors);
+        }
+    }
 }
