@@ -95,4 +95,21 @@ impl Device {
                 .expect("End command buffer failed");
         }
     }
+
+    pub fn queue_submit(&self,
+                        queue: ash::vk::Queue,
+                        cmd_buffer: ash::vk::CommandBuffer,
+                        fence: ash::vk::Fence
+
+    ) {
+        unsafe {
+            self.device
+                .queue_submit(
+                    queue,
+                    &[vk::SubmitInfo::builder().command_buffers(&[cmd_buffer]).build()],
+                    fence
+                )
+                .expect("Queue submit failed")
+        }
+    }
 }
