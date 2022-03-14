@@ -87,4 +87,12 @@ impl Device {
                 .expect("Begin command buffer failed");
         }
     }
+
+    pub fn end_command_buffer(&self, cmd_buffer: ash::vk::CommandBuffer) {
+        unsafe {
+            self.device
+                .end_command_buffer(cmd_buffer)
+                .expect("End command buffer failed");
+        }
+    }
 }

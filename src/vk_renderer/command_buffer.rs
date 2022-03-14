@@ -2,8 +2,10 @@ use std::sync::{Arc};
 
 use ash::{vk::{self}};
 
+use crate::{VkHandle};
 use crate::vk_renderer::{
     device::Device,
+    pipeline::Pipeline,
     swapchain::Swapchain
 };
 
@@ -81,5 +83,44 @@ impl CommandBuffer {
                 .borrow()
                 .cmd_set_scissor(cmd_buffer, 0, &scissors);
         }
+    }
+
+    pub fn cmd_bind_pipeline(&self,
+                             cmd_buffer: ash::vk::CommandBuffer,
+                             pipeline: &Arc<Pipeline>
+    ) {
+        unsafe {
+            self.device
+                .borrow()
+                .cmd_bind_pipeline(cmd_buffer, pipeline.bind_point(), pipeline.vk_handle());
+        }
+    }
+
+    pub fn cmd_end_render_pass(&self, cmd_buffer: ash::vk::CommandBuffer) {
+        unsafe {
+            self.device
+                .borrow()
+                .cmd_end_render_pass(cmd_buffer);
+        }
+    }
+
+    pub fn cmd_draw(&self,
+                    cmd_buffer: ash::vk::CommandBuffer,
+                    vertex_count: u32,
+                    instance_count: u32,
+                    first_vertex: u32,
+                    first_instance: u32
+    ) {
+        unsafe {
+            self.device
+                .borrow()
+                .cmd_draw(cmd_buffer,
+                          vertex_count,
+                          instance_count,
+                          first_vertex,
+                          first_instance
+                );
+        }
+
     }
 }

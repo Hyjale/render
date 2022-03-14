@@ -2,6 +2,7 @@ use std::sync::{Arc};
 
 use ash::{vk::{self}};
 
+use crate::{VkHandle, impl_vk_handle};
 use crate::vk_renderer::{
     device::Device,
     shader_module::ShaderModule
@@ -9,6 +10,7 @@ use crate::vk_renderer::{
 
 pub struct Pipeline {
     pipeline: ash::vk::Pipeline,
+    bind_point: ash::vk::PipelineBindPoint
 }
 
 impl Pipeline {
@@ -112,8 +114,15 @@ impl Pipeline {
                 .unwrap()[0];
 
             Arc::new(Pipeline {
-                pipeline: pipeline
+                pipeline: pipeline,
+                bind_point: vk::PipelineBindPoint::GRAPHICS
             })
         }
     }
+
+    pub fn bind_point(&self) -> vk::PipelineBindPoint {
+        self.bind_point
+    }
 }
+
+impl_vk_handle!(Pipeline, ash::vk::Pipeline, pipeline);
