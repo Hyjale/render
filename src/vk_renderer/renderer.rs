@@ -52,17 +52,17 @@ impl Renderer {
                                      system
             );
 
-            let render_pass = RenderPass::new(device.clone());
+            let render_pass = RenderPass::new(&device);
 
-            let pipeline = Pipeline::new(device.clone(),
+            let pipeline = Pipeline::new(&device,
                                         render_pass.vk_handle()
             );
 
-            let command_pool = CommandPool::new(device.clone(), device.queue_family_index());
+            let command_pool = CommandPool::new(&device, device.queue_family_index());
 
             let command_buffers = CommandBuffer::new(device.clone(), command_pool.vk_handle());
 
-            let fences = Fence::new(device.clone());
+            let fences = Fence::new(&device);
 
             Renderer {
                 device: device,

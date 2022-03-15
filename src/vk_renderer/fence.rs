@@ -13,7 +13,7 @@ pub struct Fence {
 }
 
 impl Fence {
-    pub fn new(device: Arc<Device>) -> Arc<Fence> {
+    pub fn new(device: &Arc<Device>) -> Arc<Fence> {
         unsafe {
             let fence = (0..PIPELINE_DEPTH)
                 .map(|_| {

@@ -12,7 +12,7 @@ pub struct CommandPool {
 }
 
 impl CommandPool {
-    pub fn new(device: Arc<Device>, queue_family_index: u32) -> Arc<CommandPool> {
+    pub fn new(device: &Arc<Device>, queue_family_index: u32) -> Arc<CommandPool> {
         unsafe {
             let command_pool = device
                 .borrow()
