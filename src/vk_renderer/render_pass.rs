@@ -15,7 +15,7 @@ pub struct RenderPass {
 }
 
 impl RenderPass {
-    pub fn new(device: Arc<Device>) -> Arc<RenderPass> {
+    pub fn new(device: &Arc<Device>) -> Arc<RenderPass> {
         unsafe {
             let view_mask = !(!0 << VIEW_COUNT);
             let render_pass = device

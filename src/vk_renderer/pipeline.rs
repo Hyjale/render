@@ -14,7 +14,7 @@ pub struct Pipeline {
 }
 
 impl Pipeline {
-    pub fn new(device: Arc<Device>,
+    pub fn new(device: &Arc<Device>,
                render_pass: ash::vk::RenderPass
     ) -> Arc<Pipeline> {
         unsafe {
